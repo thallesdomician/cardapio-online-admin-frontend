@@ -10,8 +10,6 @@ import Routes from "~/routes";
 import GlobalStyle from "~/styles/global";
 
 function App() {
-	console.tron.log("history");
-	console.tron.log(history);
 	return (
 		<Router history={history}>
 			<Routes />

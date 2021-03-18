@@ -24,7 +24,7 @@ Yup.addMethod(Yup.string, "equalTo", equalTo);
 
 const schema = Yup.object().shape({
 	username: Yup.string()
-		.min(8, "Precisa ter no mínimo 8 caracteres")
+		.min(6, "Precisa ter no mínimo 6 caracteres")
 		.trim("Não pode conter quebras ou espaços")
 		.required("Username é obrigatório"),
 	firstname: Yup.string().required("Nome é obrigatório"),

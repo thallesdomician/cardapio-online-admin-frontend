@@ -4,17 +4,20 @@ import { darken } from "polished";
 
 export const Wrapper = styled.div`
 	height: 100%;
-	background: linear-gradient(-45deg, #029483, #2a41bf);
+	overflow-y: auto;
+	background: #c94b4b;
+	background: linear-gradient(-30deg, #4b134f, #c94b4b);
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 15px 0;
 `;
 
 export const Content = styled.div`
-	width: 100%;
-	max-width: 315px;
+	width: 90%;
+	max-width: 330px;
 	text-align: center;
-
 	img {
 		height: 100px;
 
@@ -27,7 +30,7 @@ export const Content = styled.div`
 		margin-top: 30px;
 
 		input {
-			background: rgba(0, 0, 0, 0.1);
+			background: rgba(0, 0, 0, 0.2);
 			border: 0;
 			border-radius: 4px;
 			height: 44px;
@@ -41,7 +44,7 @@ export const Content = styled.div`
 		}
 
 		span {
-			color: #bd1e1e;
+			color: #fff;
 			align-self: flex-end;
 			margin: 0 0 15px;
 		}
@@ -49,7 +52,7 @@ export const Content = styled.div`
 		button {
 			margin: 5px 0 0;
 			height: 44px;
-			background: #598b2c;
+			background: #0070b5;
 			font-weight: bold;
 			color: #fff;
 			border: 0;
@@ -58,7 +61,7 @@ export const Content = styled.div`
 			transition: background 0.2s;
 
 			&:hover {
-				background: ${darken(0.05, "#598B2C")};
+				background: ${darken(0.05, "#0070b5")};
 			}
 		}
 
@@ -66,7 +69,8 @@ export const Content = styled.div`
 			color: #fff;
 			margin-top: 15px;
 			font-size: 1.1rem;
-			opacity: 0.7;
+			font-weight: bold;
+			opacity: 0.6;
 
 			&:hover {
 				opacity: 1;
