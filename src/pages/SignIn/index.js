@@ -1,32 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from "~/assets/cardapio.svg";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { VscLoading } from 'react-icons/vsc';
+import logo from '~/assets/cardapio.svg';
 
-import { Form, Input } from "@rocketseat/unform";
+import { signInRequest } from '~/store/modules/auth/actions';
 
-import * as Yup from "yup";
+import { Form, Input } from '@rocketseat/unform';
+
+import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-	username: Yup.string().required("Username é obrigatório"),
-	password: Yup.string().required("Senha é obrigatória"),
+  username: Yup.string().required('Username é obrigatório'),
+  password: Yup.string().required('Senha é obrigatória'),
 });
 
 export default function SignIn() {
-	function handleSubmit(data) {
-		console.tron.log(data);
-	}
-	return (
-		<>
-			<img src={logo} alt="Cardapio Virtual" />
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
 
-			<Form schema={schema} onSubmit={handleSubmit}>
-				<Input name="username" placeholder="Username" />
-				<Input name="password" type="password" placeholder="Senha" />
+  function handleSubmit({ username, password }) {
+    dispatch(signInRequest({ username, password }));
+  }
+  return (
+    <>
+      <img src={logo} alt="Cardapio Virtual" />
 
-				<button type="submit">Acessar</button>
+      <Form schema={schema} onSubmit={handleSubmit}>
+        <Input name="username" placeholder="Username" />
+        <Input name="password" type="password" placeholder="Senha" />
 
-				<Link to="/register"> Criar Conta</Link>
-			</Form>
-		</>
-	);
+        <button disabled={loading ? 'opa' : ''} type="submit">
+          {loading ? 'Carregando' : 'Acessar'} {loading ? <VscLoading /> : null}
+        </button>
+
+        <Link to="/register"> Criar Conta</Link>
+      </Form>
+    </>
+  );
 }
