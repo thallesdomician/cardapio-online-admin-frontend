@@ -5,8 +5,8 @@ import { darken } from 'polished';
 export const Wrapper = styled.div`
   height: 100%;
   overflow-y: auto;
-  background: #202020;
-  background: linear-gradient(-45deg, #333, #131313);
+  background: #334982;
+  background: linear-gradient(45deg, #1b2956, #607d8b);
 
   display: flex;
   justify-content: center;
@@ -54,7 +54,7 @@ export const Content = styled.div`
     }
 
     span {
-      color: #f12d5c;
+      color: #bf1010;
       align-self: flex-end;
       margin: 0 0 15px;
     }
