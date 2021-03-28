@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { VscLoading } from 'react-icons/vsc';
+import { AiOutlineReload } from 'react-icons/ai';
 import logo from '~/assets/cardapio.svg';
 
 import { signInRequest } from '~/store/modules/auth/actions';
@@ -15,12 +15,13 @@ const schema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-export default function SignIn() {
+export default function SignIn(props) {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
-
+  const { to } = props.location?.state || {};
+  console.tron.log('login', props);
   function handleSubmit({ username, password }) {
-    dispatch(signInRequest({ username, password }));
+    dispatch(signInRequest({ username, password, to }));
   }
   return (
     <>
@@ -30,8 +31,9 @@ export default function SignIn() {
         <Input name="username" placeholder="Username" />
         <Input name="password" type="password" placeholder="Senha" />
 
-        <button disabled={loading ? 'opa' : ''} type="submit">
-          {loading ? 'Carregando' : 'Acessar'} {loading ? <VscLoading /> : null}
+        <button disabled={loading ? 'disabled' : ''} type="submit">
+          {loading ? 'Carregando' : 'Acessar'}{' '}
+          {loading ? <AiOutlineReload /> : null}
         </button>
 
         <Link to="/register"> Criar Conta</Link>

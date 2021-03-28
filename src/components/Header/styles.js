@@ -8,6 +8,9 @@ export const Container = styled.div`
   justify-content: space-evenly;
   height: 70px;
   box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
+  @media ${device.laptop} {
+    box-shadow: none;
+  }
   padding: 5px 30px;
 `;
 
@@ -17,9 +20,17 @@ export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${device.laptop} {
+    justify-content: flex-end;
+  }
   nav {
-    display: flex;
     justify-content: center;
+
+    display: flex;
+    @media ${device.laptop} {
+      display: none;
+    }
 
     img {
       height: 45px;
@@ -30,6 +41,7 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
     a {
       display: flex;
       justify-content: space-between;
@@ -39,7 +51,7 @@ export const Content = styled.div`
         color: #1b2956;
         margin-left: 10px;
         display: none;
-        @media ${device.tablet} {
+        @media ${device.laptop} {
           display: block;
         }
       }
@@ -55,14 +67,27 @@ export const ToggleMenu = styled.div`
   justify-content: center;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.5s;
+  transition: background-color 0.2s;
   &:hover {
     background-color: rgba(27, 41, 86, 0.3);
   }
+  @media ${device.laptop} {
+    display: none;
+  }
+
+  &:active {
+    background-color: #1b2956;
+
+    svg {
+      color: #fff;
+    }
+  }
 
   svg {
+    color: #000;
     height: 20px;
     width: 20px;
+    transition: color 0.5s;
   }
 `;
 

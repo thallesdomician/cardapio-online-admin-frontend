@@ -7,10 +7,10 @@ export default function Dashboard() {
   api
     .get('api/profile/user/')
     .then(result => {
-      console.tron.log(result);
+      //   console.tron.log(result);
     })
     .catch(err => {
-      console.tron.log(err);
+      //   console.tron.log(err);
     });
   return (
     <div>

@@ -8,7 +8,7 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { username, password } = payload;
+    const { username, password, to } = payload;
 
     const response = yield call(api.post, 'auth/login/', {
       username,
@@ -20,8 +20,9 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     yield put(signInSuccess(token));
 
-    history.push('/dashboard');
+    history.push(to ?? '/dashboard');
   } catch (error) {
+    console.tron.log('erro login', error);
     toast.error('Falha na autenticação. Verifique seus dados!');
     yield put(signFailure());
   }
