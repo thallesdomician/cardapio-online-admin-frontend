@@ -23,8 +23,6 @@ export default function StoreEdit(props) {
   const { pathname } = props.location;
   return (
     <Container>
-      <h1>Edição da loja</h1>
-
       <Tabs>
         <span className={pathname === `${url}` ? 'active' : null}>
           <Link to={`${url}`}>

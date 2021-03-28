@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import history from '~/services/history';
+
 import api from '~/services/api';
 import Loading from '~/components/Loader';
 
 import { AiOutlineReload } from 'react-icons/ai';
 
-import { Form, Input, Textarea } from '@rocketseat/unform';
+import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
@@ -42,9 +44,21 @@ export default function StoreEditProfile() {
       });
   }, []);
 
-  function handleSubmit(data) {
-    console.tron.log('data', data);
-    setSaving(false);
+  function handleSubmit({ name, slug, cnpj, description }, oldSlug) {
+    setSaving(true);
+    api
+      .put(`/api/owner/store/${oldSlug}/`, { name, slug, cnpj, description })
+      .then(({ data }) => {
+        setStore(data);
+        toast.success('Dados salvos com sucesso!');
+        history.replace(`/store/${slug}/edit`);
+      })
+      .catch(error => {
+        toast.error('Ocorreu um erro ao salvar os dados.');
+      })
+      .finally(() => {
+        setSaving(false);
+      });
   }
   function handleSlug(data) {
     setNewSlug(data.target.value);
@@ -53,7 +67,11 @@ export default function StoreEditProfile() {
     return <Loading />;
   }
   return (
-    <Form initialData={store} schema={schema} onSubmit={handleSubmit}>
+    <Form
+      initialData={store}
+      schema={schema}
+      onSubmit={data => handleSubmit(data, slug)}
+    >
       <label htmlFor="name">Nome da Loja</label>
       <Input name="name" placeholder="Nome da Loja" />
       <label htmlFor="cnpj">CNPJ</label>

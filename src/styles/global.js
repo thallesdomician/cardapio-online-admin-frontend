@@ -62,4 +62,11 @@ a {
      cursor: pointer;
  }
 
+ .Toastify__toast {
+     margin: 0 5px;
+}
+ .Toastify__toast-container--top-right {
+     top: 75px;
+}
+
 `;

@@ -19,7 +19,7 @@ export const Content = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  padding: 20px 15px;
+  padding: 10px 15px;
 
   width: 100%;
   display: flex;
@@ -32,7 +32,7 @@ export const Content = styled.div`
     width: 100%;
 
     label {
-      margin-top: 30px;
+      margin-top: 10px;
       font-weight: bold;
 
       .show-slug {
@@ -98,23 +98,23 @@ export const Tabs = styled.div`
   display: inline-flex;
   width: 100%;
   height: 100%;
+  min-height: 50px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: #fff;
+  border-radius: 4px 4px 0 0;
   span {
-    background-color: #fff;
     text-align: center;
     flex: 1;
-    border-radius: 4px 4px 0 0;
-
+    height: 80%;
     &:hover {
-      background-color: #fff;
       a {
         color: #1b2956;
       }
     }
     & + span {
-      margin-left: 1px;
+      border-left: 1px solid #607d8b;
     }
     &.active {
       a {
@@ -129,7 +129,7 @@ export const Tabs = styled.div`
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      padding: 10px 5px;
+
       color: #607d8b;
 
       @media ${device.tablet} {
