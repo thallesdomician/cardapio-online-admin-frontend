@@ -20,6 +20,7 @@ export const Content = styled.div`
   height: 100%;
   width: 100%;
   padding: 10px 15px;
+  flex-direction: column;
 
   width: 100%;
   display: flex;

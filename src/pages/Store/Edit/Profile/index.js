@@ -12,6 +12,8 @@ import { AiOutlineReload } from 'react-icons/ai';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
+import Title from '~/components/Title';
+
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome da Loja é obrigatório'),
   slug: Yup.string().required('Slug é obrigatório'),
@@ -67,38 +69,41 @@ export default function StoreEditProfile() {
     return <Loading />;
   }
   return (
-    <Form
-      initialData={store}
-      schema={schema}
-      onSubmit={data => handleSubmit(data, slug)}
-    >
-      <label htmlFor="name">Nome da Loja</label>
-      <Input name="name" placeholder="Nome da Loja" />
-      <label htmlFor="cnpj">CNPJ</label>
-      <Input name="cnpj" placeholder="CNPJ" />
-      <label className="slug" htmlFor="slug">
-        www.cardapiovirtual.online/
-        <span className="show-slug">{newSlug}</span>
-      </label>
-      <Input name="slug" placeholder="slug" onChange={handleSlug} />
-      <label htmlFor="description">Descrição</label>
-      <Input
-        multiline
-        name="description"
-        rows="5"
-        cols="15"
-        placeholder="Descrição"
-      />
+    <>
+      <Title> Editar dados: {store.name}</Title>
+      <Form
+        initialData={store}
+        schema={schema}
+        onSubmit={data => handleSubmit(data, slug)}
+      >
+        <label htmlFor="name">Nome da Loja</label>
+        <Input name="name" placeholder="Nome da Loja" />
+        <label htmlFor="cnpj">CNPJ</label>
+        <Input name="cnpj" placeholder="CNPJ" />
+        <label className="slug" htmlFor="slug">
+          www.cardapiovirtual.online/
+          <span className="show-slug">{newSlug}</span>
+        </label>
+        <Input name="slug" placeholder="slug" onChange={handleSlug} />
+        <label htmlFor="description">Descrição</label>
+        <Input
+          multiline
+          name="description"
+          rows="5"
+          cols="15"
+          placeholder="Descrição"
+        />
 
-      <button disabled={saving ? 'disabled' : ''} type="submit">
-        {saving ? (
-          <>
-            Salvando <AiOutlineReload />
-          </>
-        ) : (
-          'Salvar'
-        )}
-      </button>
-    </Form>
+        <button disabled={saving ? 'disabled' : ''} type="submit">
+          {saving ? (
+            <>
+              Salvando <AiOutlineReload />
+            </>
+          ) : (
+            'Salvar'
+          )}
+        </button>
+      </Form>
+    </>
   );
 }
