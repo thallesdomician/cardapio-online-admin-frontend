@@ -29,15 +29,14 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 500px;
     width: 100%;
 
     label {
       margin-top: 10px;
-      font-weight: bold;
-
+      font-weight: 600;
+      color: #334982;
       .show-slug {
-        font-size: 1.4em;
+        font-size: 1.2em;
         color: #bf1010;
       }
     }
@@ -52,8 +51,7 @@ export const Content = styled.div`
       padding: 0 15px;
       color: #1b2956;
       margin: 5px 0 15px;
-      border-bottom: 1px solid #1b2956;
-      border-left: 1px solid #1b2956;
+      border-bottom: 1px solid #607d8b;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);

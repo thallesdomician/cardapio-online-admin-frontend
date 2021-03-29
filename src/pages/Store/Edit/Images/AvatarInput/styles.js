@@ -7,7 +7,10 @@ export const Container = styled.div`
   label {
     cursor: pointer;
     &:hover {
-      opacity: 0.7;
+      opacity: 0.9;
+      img {
+        box-shadow: 0px 3px 7px 4px rgb(0, 0, 0, 0.3);
+      }
     }
     img {
       height: 120px;

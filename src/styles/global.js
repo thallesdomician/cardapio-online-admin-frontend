@@ -24,7 +24,7 @@ export const device = {
 };
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap'); */
 
 *{
     margin:0;
@@ -47,7 +47,7 @@ body {
 }
 
 body, input, button {
-    font:14px 'Roboto', sans-serif;
+    font:14px 'Open Sans', sans-serif;
 }
 
 a {

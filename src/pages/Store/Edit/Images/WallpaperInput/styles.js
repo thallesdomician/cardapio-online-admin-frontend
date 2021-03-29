@@ -8,10 +8,13 @@ export const Container = styled.div`
     width: 100%;
     cursor: pointer;
     &:hover {
-      opacity: 0.7;
+      opacity: 0.9;
+      .img {
+        box-shadow: 0px 3px 7px 4px rgb(0, 0, 0, 0.3);
+      }
     }
     .img {
-      background: url(${props => props.preview}) no-repeat center center fixed;
+      background: url(${props => props.preview}) no-repeat center center;
       background-size: cover;
       height: 150px;
       border-radius: 4px;

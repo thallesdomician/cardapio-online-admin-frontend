@@ -70,7 +70,9 @@ export default function StoreEditProfile() {
   }
   return (
     <>
-      <Title> Editar dados: {store.name}</Title>
+      <Title>
+        Perfil: <small>{store.name}</small>
+      </Title>
       <Form
         initialData={store}
         schema={schema}

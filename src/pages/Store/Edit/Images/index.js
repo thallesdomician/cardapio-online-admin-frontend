@@ -10,6 +10,7 @@ import AvatarInput from './AvatarInput';
 import WallpaperInput from './WallpaperInput';
 
 import { Container, Content } from './styles.js';
+import Title from '~/components/Title';
 
 export default function StoreEditImages() {
   const { slug } = useParams();
@@ -37,6 +38,7 @@ export default function StoreEditImages() {
   }
   return (
     <Container>
+      <Title>Imagens</Title>
       <Content>
         <WallpaperInput slug={data.slug} image={data.wallpaper?.wallpaper} />
         <AvatarInput slug={data.slug} image={data.avatar?.avatar} />

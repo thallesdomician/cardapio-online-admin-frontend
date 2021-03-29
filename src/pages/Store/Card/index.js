@@ -19,12 +19,12 @@ export default function Card(props) {
             {link || edit ? (
               <Link to={`/store/${store.slug}${edit ? '/edit' : ''}`}>
                 <div>
-                  <img src={store.logo} alt={store.name} />
+                  <img src={store.avatar?.avatar} alt={store.name} />
                 </div>
               </Link>
             ) : (
               <div>
-                <img src={store.logo} alt={store.name} />
+                <img src={store.avatar?.avatar} alt={store.name} />
               </div>
             )}
           </Image>
