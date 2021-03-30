@@ -54,8 +54,8 @@ export const Content = styled.div`
     }
 
     span {
-      color: #bf1010;
-      align-self: flex-end;
+      color: #fff;
+      align-self: flex-start;
       margin: 0 0 15px;
     }
 

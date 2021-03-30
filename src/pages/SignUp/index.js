@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '~/assets/cardapio.svg';
-import { useDispatch } from 'react-redux';
+import history from '~/services/history';
 
-import { signUpRequest } from '~/store/modules/auth/actions';
+import api from '~/services/api';
+import { toast } from 'react-toastify';
 
-import { Form, Input } from '@rocketseat/unform';
+import { Formik, Field, Form } from 'formik';
 
 import * as Yup from 'yup';
 
@@ -60,37 +61,88 @@ const schema = Yup.object().shape({
 });
 
 export default function SignUp() {
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
-  function handleSubmit({
-    username,
-    password,
-    password2,
-    email,
-    first_name,
-    last_name,
-  }) {
-    dispatch(
-      signUpRequest(username, password, password2, email, first_name, last_name)
-    );
+  function handleSubmit(
+    { username, password, password2, email, first_name, last_name },
+    actions
+  ) {
+    // dispatch(
+    //   signUpRequest(username, password, password2, email, first_name, last_name)
+    // );
+
+    api
+      .post('auth/register/', {
+        username,
+        password,
+        password2,
+        email,
+        first_name,
+        last_name,
+      })
+      .then(data => {
+        console.log(data);
+        toast.success('Usuário cadastrado com sucesso!');
+        history.push('/');
+      })
+      .catch(error => {
+        if (error.response) {
+          const { data } = error.response;
+          Object.keys(data).map(field => {
+            actions.setFieldError(field, data[field]);
+          });
+        }
+        toast.error('Falha no cadastro. Verifique seus dados!');
+      });
   }
 
   return (
     <>
       <img src={logo} alt="Cardapio Virtual" />
+      <Formik
+        initialValues={{
+          username: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          password2: '',
+        }}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <Field name="username" placeholder="Usuário" />
+            {errors.username && touched.username ? (
+              <span>{errors.username}</span>
+            ) : null}
+            <Field name="first_name" placeholder="Nome" />
+            {errors.first_name && touched.first_name ? (
+              <span>{errors.first_name}</span>
+            ) : null}
+            <Field name="last_name" placeholder="Sobrenome" />
+            {errors.last_name && touched.last_name ? (
+              <span>{errors.last_name}</span>
+            ) : null}
+            <Field type="email" name="email" placeholder="E-mail" />
+            {errors.email && touched.email ? <span>{errors.email}</span> : null}
+            <Field type="password" name="password" placeholder="Senha" />
+            {errors.password && touched.password ? (
+              <span>{errors.password}</span>
+            ) : null}
+            <Field
+              type="password"
+              name="password2"
+              placeholder="Repita a senha"
+            />
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="username" placeholder="Usuário" />
-        <Input name="first_name" placeholder="Nome" />
-        <Input name="last_name" placeholder="Sobrenome" />
-        <Input type="email" name="email" placeholder="E-mail" />
-        <Input type="password" name="password" placeholder="Senha" />
-        <Input type="password" name="password2" placeholder="Repita a senha" />
+            <button type="submit">Criar Conta</button>
 
-        <button type="submit">Criar Conta</button>
-
-        <Link to="/"> Já tenho Login</Link>
-      </Form>
+            <Link to="/"> Já tenho Login</Link>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 }

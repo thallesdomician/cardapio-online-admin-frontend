@@ -5,8 +5,7 @@ import { AiOutlineReload } from 'react-icons/ai';
 import logo from '~/assets/cardapio.svg';
 
 import { signInRequest } from '~/store/modules/auth/actions';
-
-import { Form, Input } from '@rocketseat/unform';
+import { Formik, Field, Form } from 'formik';
 
 import * as Yup from 'yup';
 
@@ -26,18 +25,33 @@ export default function SignIn(props) {
   return (
     <>
       <img src={logo} alt="Cardapio Virtual" />
+      <Formik
+        initialValues={{
+          username: '',
+          password: '',
+        }}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <Field name="username" placeholder="Username" />
+            {errors.username && touched.username ? (
+              <span>{errors.username}</span>
+            ) : null}
+            <Field name="password" type="password" placeholder="Senha" />
+            {errors.password && touched.password ? (
+              <span>{errors.password}</span>
+            ) : null}
+            <button disabled={loading ? 'disabled' : ''} type="submit">
+              {loading ? 'Carregando' : 'Acessar'}{' '}
+              {loading ? <AiOutlineReload /> : null}
+            </button>
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="username" placeholder="Username" />
-        <Input name="password" type="password" placeholder="Senha" />
-
-        <button disabled={loading ? 'disabled' : ''} type="submit">
-          {loading ? 'Carregando' : 'Acessar'}{' '}
-          {loading ? <AiOutlineReload /> : null}
-        </button>
-
-        <Link to="/register"> Criar Conta</Link>
-      </Form>
+            <Link to="/register"> Criar Conta</Link>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 }

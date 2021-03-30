@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import api from '~/services/api';
 import { Container } from './styles.js';
 import { toast } from 'react-toastify';
-import { useField } from '@rocketseat/unform';
 
 export default function AvatarInput({ slug, image }) {
   const [preview, setPreview] = useState(image);

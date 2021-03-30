@@ -25,7 +25,7 @@ export default function Store() {
       .finally(() => {
         setLoading(false);
       });
-  }, [storeList]);
+  }, []);
 
   if (loading) {
     return <Loader />;

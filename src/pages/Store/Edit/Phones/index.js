@@ -12,7 +12,7 @@ import { AiOutlineReload } from 'react-icons/ai';
 
 import { Container } from './styles';
 
-import { Form, Scope, Input } from '@rocketseat/unform';
+// import { Form, Scope } from '@unform/core';
 import * as Yup from 'yup';
 
 import Title from '~/components/Title';
@@ -21,21 +21,13 @@ const schema = Yup.object().shape({
   phones: Yup.array().of(
     Yup.object().shape({
       ddd: Yup.string()
-        .matches(/^[1-9]/, {
-          message: 'Precisa ser numérico',
-          excludeEmptyString: true,
-        })
         .required('DDD obrigatório')
         .min(2, 'No mínimo 2 dígitos')
         .max(2, 'No máximo 2 dígitos'),
       number: Yup.string()
-        .matches(/^[1-9]{8}/, {
-          message: 'Precisa ser numérico',
-          excludeEmptyString: true,
-        })
         .required('Número Obrigatório')
         .min(8, 'No mínimo ${min} dígitos')
-        .max(9, 'No máximo ${max} dígitos'),
+        .min(9, 'No mínimo ${min} dígitos'),
       main: Yup.boolean(),
     })
   ),
@@ -106,12 +98,12 @@ export default function StoreEditPhones() {
       <button onClick={addPhone}>
         Novo <BsFillPlusSquareFill />
       </button>
-      <Form initialData={store} schema={schema} onSubmit={handleSubmit}>
+      {/* <Form initialData={store} validationSchema={schema} onSubmit={handleSubmit}>
         {store.phones.map((item, index) => {
           return (
             <Scope path={`phones[${index}]`} key={index.toString()}>
-              <PhoneBlock />
-              <button onClick={() => removePhone(index)}>Remover</button>
+              <PhoneBlock name={`phones[${index}]`} />
+              <span onClick={() => removePhone(index)}>Remover</span>
             </Scope>
           );
         })}
@@ -124,7 +116,7 @@ export default function StoreEditPhones() {
             'Salvar'
           )}
         </button>
-      </Form>
+      </Form> */}
     </Container>
   );
 }
