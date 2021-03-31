@@ -11,6 +11,10 @@ export default function PhoneBlock({ index, name }) {
   const inputDDD = useRef(null);
   return (
     <Container>
+      <label htmlFor={`${name}.main`}>
+        <Field name={`${name}.main`} type="checkbox" placeholder="Whatsapp" />
+        <IoLogoWhatsapp className="whatsapp" />
+      </label>
       <Field
         name={`${name}.ddd`}
         placeholder="(  )"
@@ -32,10 +36,6 @@ export default function PhoneBlock({ index, name }) {
         maxLength="9"
         innerRef={inputNumber}
       />
-      <label htmlFor={`${name}.main`}>
-        <Field name={`${name}.main`} type="checkbox" placeholder="Whatsapp" />
-        <IoLogoWhatsapp className="whatsapp" />
-      </label>
     </Container>
   );
 }

@@ -9,8 +9,9 @@ import Loading from '~/components/Loader';
 import PhoneBlock from './PhoneBlock';
 
 import { AiOutlineReload } from 'react-icons/ai';
+import { IoMdRemoveCircle, IoMdAddCircle } from 'react-icons/io';
 
-import { Container } from './styles';
+import { Container, Content, BlockField } from './styles';
 
 // import { Form, Scope } from '@unform/core';
 
@@ -57,22 +58,20 @@ export default function StoreEditPhones() {
       });
   }, []);
 
-  function handleSubmit(data) {
-    console.log(data);
-    // setSaving(true);
-    // api
-    //   .put(`/api/owner/store/${oldSlug}/`, { name, slug, cnpj, description })
-    //   .then(({ data }) => {
-    //     setStore(data);
-    //     toast.success('Dados salvos com sucesso!');
-    //     history.replace(`/store/${slug}/edit`);
-    //   })
-    //   .catch(error => {
-    //     toast.error('Ocorreu um erro ao salvar os dados.');
-    //   })
-    //   .finally(() => {
-    //     setSaving(false);
-    //   });
+  function handleSubmit({ phones }) {
+    api
+      .post(`/api/owner/store/${slug}/phones/`, { phones: phones })
+      .then(({ data }) => {
+        setStore(data);
+        toast.success('Dados salvos com sucesso!');
+        history.replace(`/store/${slug}/edit`);
+      })
+      .catch(error => {
+        toast.error('Ocorreu um erro ao salvar os dados.');
+      })
+      .finally(() => {
+        setSaving(false);
+      });
   }
   if (loading) {
     return <Loading />;
@@ -81,7 +80,7 @@ export default function StoreEditPhones() {
   function addPhone() {
     setStore({
       ...store,
-      phones: [{ ddd: null, number: null, main: false }, ...store.phones],
+      phones: [...store.phones, { ddd: null, number: null, main: false }],
     });
   }
   function removePhone(index) {
@@ -94,9 +93,13 @@ export default function StoreEditPhones() {
   }
   return (
     <Container>
-      <Title>Telefones</Title>
+      <Content>
+        <Title>Telefones</Title>
+        <button onClick={addPhone}>
+          <IoMdAddCircle />
+        </button>
+      </Content>
 
-      <span onClick={addPhone}>adicionar</span>
       <Formik initialValues={store} onSubmit={handleSubmit}>
         {({ values, errors, touched, handleReset }) => {
           return (
@@ -107,12 +110,12 @@ export default function StoreEditPhones() {
                   return store.phones && store.phones.length > 0
                     ? store.phones.map((item, index) => {
                         return (
-                          <React.Fragment key={index}>
+                          <BlockField className="block-fied" key={index}>
                             <PhoneBlock name={`phones[${index}]`} />
-                            <span onClick={() => removePhone(index)}>
-                              remover
-                            </span>
-                          </React.Fragment>
+                            <button onClick={() => removePhone(index)}>
+                              <IoMdRemoveCircle />
+                            </button>
+                          </BlockField>
                         );
                       })
                     : null;

@@ -69,7 +69,7 @@ export const Content = styled.div`
     button {
       margin: 5px 0 0;
       height: 44px;
-      background: #f5c800;
+      background-color: #f5c800;
       font-weight: bold;
       color: #202020;
       width: 50%;
@@ -82,7 +82,7 @@ export const Content = styled.div`
       justify-content: center;
 
       &:hover {
-        background: ${darken(0.08, '#f5c800')};
+        background-color: ${darken(0.08, '#f5c800')};
       }
 
       &:disabled {
