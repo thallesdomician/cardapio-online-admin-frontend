@@ -13,6 +13,8 @@ import { AiOutlineReload } from 'react-icons/ai';
 import { Container } from './styles';
 
 // import { Form, Scope } from '@unform/core';
+
+import { Formik, FieldArray, Form } from 'formik';
 import * as Yup from 'yup';
 
 import Title from '~/components/Title';
@@ -46,7 +48,6 @@ export default function StoreEditPhones() {
       .then(res => {
         const { data } = res;
         setStore(data);
-        console.log(data);
       })
       .catch(errors => {
         toast.error(`Ocorreu um erro ao buscar loja: ${slug}`);
@@ -76,12 +77,11 @@ export default function StoreEditPhones() {
   if (loading) {
     return <Loading />;
   }
-  console.log('store', store);
 
   function addPhone() {
     setStore({
       ...store,
-      phones: [...store.phones, { ddd: '', number: '', main: false }],
+      phones: [{ ddd: null, number: null, main: false }, ...store.phones],
     });
   }
   function removePhone(index) {
@@ -95,28 +95,42 @@ export default function StoreEditPhones() {
   return (
     <Container>
       <Title>Telefones</Title>
-      <button onClick={addPhone}>
-        Novo <BsFillPlusSquareFill />
-      </button>
-      {/* <Form initialData={store} validationSchema={schema} onSubmit={handleSubmit}>
-        {store.phones.map((item, index) => {
+
+      <span onClick={addPhone}>adicionar</span>
+      <Formik initialValues={store} onSubmit={handleSubmit}>
+        {({ values, errors, touched, handleReset }) => {
           return (
-            <Scope path={`phones[${index}]`} key={index.toString()}>
-              <PhoneBlock name={`phones[${index}]`} />
-              <span onClick={() => removePhone(index)}>Remover</span>
-            </Scope>
+            <Form>
+              <FieldArray
+                name="phones"
+                render={({ insert, remove, push }) => {
+                  return store.phones && store.phones.length > 0
+                    ? store.phones.map((item, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            <PhoneBlock name={`phones[${index}]`} />
+                            <span onClick={() => removePhone(index)}>
+                              remover
+                            </span>
+                          </React.Fragment>
+                        );
+                      })
+                    : null;
+                }}
+              />
+              <button disabled={saving ? 'disabled' : ''} type="submit">
+                {saving ? (
+                  <>
+                    Salvando <AiOutlineReload />
+                  </>
+                ) : (
+                  'Salvar'
+                )}
+              </button>
+            </Form>
           );
-        })}
-        <button disabled={saving ? 'disabled' : ''} type="submit">
-          {saving ? (
-            <>
-              Salvando <AiOutlineReload />
-            </>
-          ) : (
-            'Salvar'
-          )}
-        </button>
-      </Form> */}
+        }}
+      </Formik>
     </Container>
   );
 }

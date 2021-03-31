@@ -5,63 +5,45 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  input {
-    border: none;
-    border-bottom: none;
-    border-left: none;
-    margin: none;
-  }
+  width: 100%;
+
   .ddd {
-    height: 50px;
-    border-radius: 4px;
-    background-color: rgba(27, 41, 86, 0.8);
-    color: #fff;
-    font-weight: 500;
-    font-size: 1.1rem;
-    width: 50px;
-    padding: 0;
+    width: 100%;
+    max-width: 150px;
+
     text-align: center;
-    &::placeholder {
-      color: #fff;
-    }
   }
   .number {
-    height: 50px;
-    width: 150px;
-    margin-left: 5px;
-    border-radius: 4px;
-    background-color: rgba(27, 41, 86, 0.8);
-    color: #fff;
-    font-weight: 500;
-    font-size: 1.1rem;
-    padding: 0;
+    width: 100%;
+    max-width: 250px;
+    margin-left: 15px;
     text-align: center;
-    &::placeholder {
-      color: #fff;
-    }
-    margin-right: 5px;
   }
 
   label {
     display: block;
+    width: 100%;
+    max-width: 50px;
+    height: 100%;
+    min-height: 30px;
+
     position: relative;
+    align-self: center;
 
     border-radius: 2px;
 
     margin-top: 0;
     margin-left: 10px;
-    height: 50px;
 
     input {
+      z-index: 1;
       position: absolute;
       opacity: 0;
       cursor: pointer;
       top: 0;
       bottom: 0;
       left: 0;
-      height: 30px;
       margin: 0 0;
-      width: 30px;
       padding: 0;
 
       & + svg {

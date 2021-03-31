@@ -29,9 +29,11 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
     width: 100%;
 
     label {
+      align-self: flex-start;
       margin-top: 10px;
       font-weight: 600;
       color: #334982;
@@ -70,6 +72,7 @@ export const Content = styled.div`
       background: #f5c800;
       font-weight: bold;
       color: #202020;
+      width: 50%;
       border: 0;
       border-radius: 4px;
       font-size: 16px;

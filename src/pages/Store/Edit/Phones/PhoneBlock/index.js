@@ -1,38 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-// import InputMask from '~/components/InputMask';
-// import Input from './components/Input';
+import { Field } from 'formik';
 
 import { IoLogoWhatsapp } from 'react-icons/io';
 
 import { Container } from './styles';
 
-export default function PhoneBlock({ name }) {
-  console.log(name);
+export default function PhoneBlock({ index, name }) {
+  const inputNumber = useRef(null);
+  const inputDDD = useRef(null);
   return (
     <Container>
-      <InputMask
-        name="ddd"
-        className="ddd"
+      <Field
+        name={`${name}.ddd`}
         placeholder="(  )"
-        mask="(99)"
-        maskChar="_"
+        className="ddd "
+        maxLength={2}
+        innerRef={inputDDD}
+        onKeyUp={val => {
+          console.log('é maior', val.target.value, val.target.maxLength);
+          if (val.target.value.length == val.target.maxLength) {
+            console.log(inputNumber);
+            inputNumber.current.focus();
+          }
+        }}
       />
-      <InputMask
-        className="number"
-        name="number"
+      <Field
+        name={`${name}.number`}
         placeholder="x xxxx xxxx"
-        mask="9 9999 9999"
-        maskChar="_"
+        className="number"
+        maxLength="9"
+        innerRef={inputNumber}
       />
       <label htmlFor={`${name}.main`}>
-        <Input
-          id={`${name}.main`}
-          className="main"
-          type="checkbox"
-          name="main"
-          placeholder="Whatsapp"
-        />
+        <Field name={`${name}.main`} type="checkbox" placeholder="Whatsapp" />
         <IoLogoWhatsapp className="whatsapp" />
       </label>
     </Container>
