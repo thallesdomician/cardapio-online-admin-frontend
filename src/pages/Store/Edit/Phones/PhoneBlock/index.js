@@ -6,25 +6,27 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 
 import { Container } from './styles';
 
-export default function PhoneBlock({ index, name }) {
+export default function PhoneBlock(props) {
+  const { name } = props;
+  console.log('pros', props);
   const inputNumber = useRef(null);
-  const inputDDD = useRef(null);
   return (
     <Container>
-      <label htmlFor={`${name}.main`}>
-        <Field name={`${name}.main`} type="checkbox" placeholder="Whatsapp" />
+      <label htmlFor={`${name}.whatsapp`}>
+        <Field
+          name={`${name}.whatsapp`}
+          type="checkbox"
+          placeholder="Whatsapp"
+        />
         <IoLogoWhatsapp className="whatsapp" />
       </label>
       <Field
         name={`${name}.ddd`}
         placeholder="(  )"
-        className="ddd "
+        className="ddd"
         maxLength={2}
-        innerRef={inputDDD}
         onKeyUp={val => {
-          console.log('é maior', val.target.value, val.target.maxLength);
           if (val.target.value.length == val.target.maxLength) {
-            console.log(inputNumber);
             inputNumber.current.focus();
           }
         }}

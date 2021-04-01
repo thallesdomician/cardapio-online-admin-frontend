@@ -31,7 +31,7 @@ const schema = Yup.object().shape({
         .required('Número Obrigatório')
         .min(8, 'No mínimo ${min} dígitos')
         .min(9, 'No mínimo ${min} dígitos'),
-      main: Yup.boolean(),
+      whatsapp: Yup.boolean(),
     })
   ),
 });
@@ -49,6 +49,7 @@ export default function StoreEditPhones() {
       .then(res => {
         const { data } = res;
         setStore(data);
+        console.log('data', data);
       })
       .catch(errors => {
         toast.error(`Ocorreu um erro ao buscar loja: ${slug}`);
@@ -59,8 +60,9 @@ export default function StoreEditPhones() {
   }, []);
 
   function handleSubmit({ phones }) {
+    console.log('phones', phones);
     api
-      .post(`/api/owner/store/${slug}/phones/`, { phones: phones })
+      .put(`/api/owner/store/${slug}/phones/`, { phones: phones })
       .then(({ data }) => {
         setStore(data);
         toast.success('Dados salvos com sucesso!');
@@ -80,7 +82,7 @@ export default function StoreEditPhones() {
   function addPhone() {
     setStore({
       ...store,
-      phones: [...store.phones, { ddd: null, number: null, main: false }],
+      phones: [...store.phones, { ddd: '', number: '', whatsapp: false }],
     });
   }
   function removePhone(index) {
@@ -91,6 +93,8 @@ export default function StoreEditPhones() {
       phones,
     });
   }
+
+  const { phones } = store;
   return (
     <Container>
       <Content>
@@ -100,18 +104,21 @@ export default function StoreEditPhones() {
         </button>
       </Content>
 
-      <Formik initialValues={store} onSubmit={handleSubmit}>
+      <Formik initialValues={phones} onSubmit={handleSubmit}>
         {({ values, errors, touched, handleReset }) => {
+          console.log('val', values);
           return (
             <Form>
               <FieldArray
                 name="phones"
-                render={({ insert, remove, push }) => {
-                  return store.phones && store.phones.length > 0
-                    ? store.phones.map((item, index) => {
+                render={props => {
+                  console.log('prodasds', props);
+
+                  return phones && phones.length > 0
+                    ? phones.map((item, index) => {
                         return (
                           <BlockField className="block-fied" key={index}>
-                            <PhoneBlock name={`phones[${index}]`} />
+                            <PhoneBlock name={`phones.${index}`} />
                             <button onClick={() => removePhone(index)}>
                               <IoMdRemoveCircle />
                             </button>
