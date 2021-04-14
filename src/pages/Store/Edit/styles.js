@@ -36,7 +36,7 @@ export const Content = styled.div`
       align-self: flex-start;
       margin-top: 10px;
       font-weight: 600;
-      color: #334982;
+      color: #90259e;
       .show-slug {
         font-size: 1.2em;
         color: #bf1010;
@@ -51,9 +51,9 @@ export const Content = styled.div`
       line-height: 25px;
       font-size: 1.2em;
       padding: 0 15px;
-      color: #1b2956;
+      color: #64219c;
       margin: 5px 0 15px;
-      border-bottom: 1px solid #607d8b;
+      border-bottom: 1px solid #a4279f;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
@@ -112,15 +112,15 @@ export const Tabs = styled.div`
     height: 80%;
     &:hover {
       a {
-        color: #1b2956;
+        color: #64219c;
       }
     }
     & + span {
-      border-left: 1px solid #607d8b;
+      border-left: 1px solid #a4279f;
     }
     &.active {
       a {
-        color: #1b2956;
+        color: #64219c;
         strong {
           font-weight: bold;
         }
@@ -132,7 +132,7 @@ export const Tabs = styled.div`
       justify-content: center;
       flex-direction: column;
 
-      color: #607d8b;
+      color: #a4279f;
 
       @media ${device.tablet} {
         flex-direction: row;

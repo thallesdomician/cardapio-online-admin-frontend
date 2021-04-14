@@ -5,9 +5,12 @@ import { darken } from 'polished';
 export const Wrapper = styled.div`
   height: 100%;
   overflow-y: auto;
-  background: #334982;
-  background: linear-gradient(45deg, #1b2956, #607d8b);
+  background: #90259e;
+  background: linear-gradient(90deg, #64219c, #a4279f);
 
+
+  background: #90259e;
+  background: linear-gradient(45deg, #64219c, #a4279f);
   display: flex;
   justify-content: center;
   align-items: center;

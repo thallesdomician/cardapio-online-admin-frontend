@@ -17,7 +17,7 @@ export const Content = styled.div`
     svg {
       width: 25px;
       height: 25px;
-      color: #1b2956;
+      color: #64219c;
     }
   }
 `;

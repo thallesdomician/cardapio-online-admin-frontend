@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   min-height: 100%;
   width: 100%;
   min-width: 350px;
-  background: #334982;
-  background: linear-gradient(45deg, #1b2956, #607d8b);
+  background: #90259e;
+  background: linear-gradient(45deg, #64219c, #a4279f);
   position: relative;
   display: flex;
   @media ${device.tablet} {

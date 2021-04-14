@@ -29,7 +29,7 @@ export const Address = styled.div`
       font-size: 1.2rem;
       font-weight: bold;
       svg {
-        color: #607d8b;
+        color: #a4279f;
         height: 20px;
         width: 20px;
         margin-right: 3px;
