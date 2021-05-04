@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Loading from '~/components/Loader';
+import avatar from '~/assets/default-company-avatar.svg';
 
 import { IoIosRadioButtonOn } from 'react-icons/io';
 import { FiEdit } from 'react-icons/fi';
@@ -19,12 +20,12 @@ export default function Card(props) {
             {link || edit ? (
               <Link to={`/store/${store.slug}${edit ? '/edit' : ''}`}>
                 <div>
-                  <img src={store.avatar?.avatar} alt={store.name} />
+                  <img src={store.avatar?.avatar || avatar} alt={store.name} />
                 </div>
               </Link>
             ) : (
               <div>
-                <img src={store.avatar?.avatar} alt={store.name} />
+                <img src={store.avatar?.avatar || avatar} alt={store.name} />
               </div>
             )}
           </Image>

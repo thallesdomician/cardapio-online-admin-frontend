@@ -48,7 +48,7 @@ export const Content = styled.div`
       align-items: center;
 
       strong {
-        color: #64219c;
+        color: #000;
         margin-left: 10px;
         display: none;
         @media ${device.laptop} {
@@ -76,7 +76,7 @@ export const ToggleMenu = styled.div`
   }
 
   &:active {
-    background-color: #64219c;
+    background-color: #000;
 
     svg {
       color: #fff;

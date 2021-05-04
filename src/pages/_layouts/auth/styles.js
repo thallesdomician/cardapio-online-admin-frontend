@@ -2,15 +2,14 @@ import styled, { keyframes } from 'styled-components';
 
 import { darken } from 'polished';
 
+import background from '~/assets/background.svg'
+
+
 export const Wrapper = styled.div`
   height: 100%;
   overflow-y: auto;
-  background: #90259e;
-  background: linear-gradient(90deg, #64219c, #a4279f);
-
-
-  background: #90259e;
-  background: linear-gradient(45deg, #64219c, #a4279f);
+  background-color: #330033;
+  background-image: url(${background});
   display: flex;
   justify-content: center;
   align-items: center;

@@ -60,7 +60,7 @@ export const Container = styled.div`
       }
 
       &:hover + svg {
-        color: #075e54;
+        color: rgba(37, 211, 102, 0.6);
       }
     }
   }
@@ -70,4 +70,14 @@ export const Content = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+`;
+
+export const BlockField = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .phone-error {
+    align-self: center;
+  }
 `;

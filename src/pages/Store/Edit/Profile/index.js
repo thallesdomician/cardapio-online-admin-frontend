@@ -31,7 +31,7 @@ export default function StoreEditProfile() {
 
   useEffect(() => {
     api
-      .get(`/api/owner/store/${oldSlug}/`)
+      .get(`/v1/store/${oldSlug}/`)
       .then(res => {
         const { data } = res;
         setStore(data);
@@ -48,7 +48,7 @@ export default function StoreEditProfile() {
   function handleSubmit({ name, slug, cnpj, description }, actions) {
     setSaving(true);
     api
-      .put(`/api/owner/store/${oldSlug}/`, { name, slug, cnpj, description })
+      .put(`/v1/store/${oldSlug}/`, { name, slug, cnpj, description })
       .then(({ data }) => {
         setStore(data);
         toast.success('Dados salvos com sucesso!');
@@ -78,7 +78,7 @@ export default function StoreEditProfile() {
   return (
     <>
       <Title>
-        Perfil: <small>{store.name}</small>
+        Loja: <small>{store.name}</small>
       </Title>
       <Formik
         initialValues={store}

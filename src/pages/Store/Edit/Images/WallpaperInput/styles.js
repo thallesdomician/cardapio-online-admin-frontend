@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { device } from '~/styles/global';
 
+import wallpapper from '~/assets/default-wallpapper.svg'
+
 export const Container = styled.div`
   align-self: center;
   width: 100%;
@@ -14,8 +16,16 @@ export const Container = styled.div`
       }
     }
     .img {
-      background: url(${props => props.preview}) no-repeat center center;
-      background-size: cover;
+      ${
+        props => {
+          if(props.preview) {
+            return `background: url(${props.preview}) no-repeat center center;
+            background-size: cover;`
+
+          }
+          return `background: url(${wallpapper});`
+        }
+      }
       height: 150px;
       border-radius: 4px;
 

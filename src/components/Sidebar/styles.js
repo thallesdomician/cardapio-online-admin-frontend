@@ -56,8 +56,7 @@ export const Content = styled.div`
 
         a {
           font-family: Roboto, sans-serif;
-          font-weight: bold;
-          color: #a4279f;
+          color: #000;
           font-size: 1.1rem;
           padding: 5px 10px;
 
@@ -66,7 +65,6 @@ export const Content = styled.div`
           &.active,
           &:hover {
             border-left: 2px solid #a4279f;
-            color: #64219c;
           }
         }
       }

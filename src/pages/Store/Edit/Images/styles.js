@@ -28,6 +28,8 @@ export const Content = styled.div`
     & + div {
       position: absolute;
       bottom: 0;
+      background-color: #fff;
+      border-radius: 50%;
     }
   }
 `;

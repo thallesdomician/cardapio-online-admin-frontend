@@ -3,12 +3,11 @@ import React, { useRef } from 'react';
 import { Field } from 'formik';
 
 import { IoLogoWhatsapp } from 'react-icons/io';
-
-import { Container } from './styles';
+import { getIn } from 'formik';
+import { Container, BlockField } from './styles';
 
 export default function PhoneBlock(props) {
-  const { name } = props;
-  console.log('pros', props);
+  const { name, errors, touched } = props;
   const inputNumber = useRef(null);
   return (
     <Container>
@@ -20,24 +19,36 @@ export default function PhoneBlock(props) {
         />
         <IoLogoWhatsapp className="whatsapp" />
       </label>
-      <Field
-        name={`${name}.ddd`}
-        placeholder="(  )"
-        className="ddd"
-        maxLength={2}
-        onKeyUp={val => {
-          if (val.target.value.length == val.target.maxLength) {
-            inputNumber.current.focus();
-          }
-        }}
-      />
-      <Field
-        name={`${name}.number`}
-        placeholder="x xxxx xxxx"
-        className="number"
-        maxLength="9"
-        innerRef={inputNumber}
-      />
+      <BlockField>
+        <Field
+          name={`${name}.ddd`}
+          placeholder="(  )"
+          className="ddd"
+          maxLength={2}
+          type="number"
+          onKeyUp={val => {
+            if (val.target.value.length == val.target.maxLength) {
+              inputNumber.current.focus();
+            }
+          }}
+        />
+        {getIn(errors, 'ddd') && getIn(touched, 'ddd') ? (
+          <span className="phone-error">{getIn(errors, 'ddd')}</span>
+        ) : null}
+      </BlockField>
+      <BlockField>
+        <Field
+          name={`${name}.number`}
+          placeholder="x xxxx xxxx"
+          className="number"
+          maxLength="9"
+          type="number"
+          innerRef={inputNumber}
+        />
+        {getIn(errors, 'number') && getIn(touched, 'number') ? (
+          <span className="phone-error">{getIn(errors, 'number')}</span>
+        ) : null}
+      </BlockField>
     </Container>
   );
 }

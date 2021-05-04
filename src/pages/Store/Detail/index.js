@@ -18,7 +18,7 @@ export default function StoreDetail() {
 
   useEffect(() => {
     api
-      .get(`/api/owner/store/${slug}/`)
+      .get(`/v1/store/${slug}/`)
       .then(res => {
         const { data } = res;
         setStore(data);

@@ -12,7 +12,7 @@ export default function WallpaperInput({ slug, image }) {
     data.append('wallpaper', e.target.files[0]);
 
     api
-      .post(`/api/owner/store/${slug}/wallpaper/`, data)
+      .post(`/v1/store/${slug}/wallpaper/`, data)
       .then(({ data }) => {
         console.log(data);
         setPreview(data.wallpaper);

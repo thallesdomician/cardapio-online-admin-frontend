@@ -8,7 +8,8 @@ import {
   FaFileImage,
 } from 'react-icons/fa';
 
-import { Link, Switch, Route } from 'react-router-dom';
+import { VscChromeClose } from 'react-icons/vsc';
+import { Link, Switch, Route, useParams } from 'react-router-dom';
 
 import Address from './Address';
 import Profile from './Profile';
@@ -16,9 +17,10 @@ import Images from './Images';
 import Phones from './Phones';
 import OpenDays from './OpenDays';
 
-import { Container, Content, Tabs } from './styles';
+import { Container, Content, Tabs, Close } from './styles';
 
 export default function StoreEdit(props) {
+  const { slug } = useParams();
   const { path, url } = props.match;
   const { pathname } = props.location;
   return (
@@ -26,7 +28,7 @@ export default function StoreEdit(props) {
       <Tabs>
         <span className={pathname === `${url}` ? 'active' : null}>
           <Link to={`${url}`}>
-            <FaStore /> <strong>Perfil</strong>
+            <FaStore /> <strong>Dados</strong>
           </Link>
         </span>
         <span className={pathname === `${url}/images` ? 'active' : null}>
@@ -53,6 +55,11 @@ export default function StoreEdit(props) {
             <strong>Horários</strong>
           </Link>
         </span>
+        <Close>
+          <Link to={`/store/${slug}`}>
+            <VscChromeClose />
+          </Link>
+        </Close>
       </Tabs>
       <Content>
         <Switch>

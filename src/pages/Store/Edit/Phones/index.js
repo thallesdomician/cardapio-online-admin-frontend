@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { BsFillPlusSquareFill } from 'react-icons/bs';
-
 import api from '~/services/api';
 import Loading from '~/components/Loader';
 import PhoneBlock from './PhoneBlock';
@@ -11,11 +9,11 @@ import PhoneBlock from './PhoneBlock';
 import { AiOutlineReload } from 'react-icons/ai';
 import { IoMdRemoveCircle, IoMdAddCircle } from 'react-icons/io';
 
-import { Container, Content, BlockField } from './styles';
+import { Container, Content, BlockField, IconAdd } from './styles';
 
 // import { Form, Scope } from '@unform/core';
 
-import { Formik, FieldArray, Form } from 'formik';
+import { Formik, FieldArray, Form, getIn } from 'formik';
 import * as Yup from 'yup';
 
 import Title from '~/components/Title';
@@ -30,8 +28,7 @@ const schema = Yup.object().shape({
       number: Yup.string()
         .required('Número Obrigatório')
         .min(8, 'No mínimo ${min} dígitos')
-        .min(9, 'No mínimo ${min} dígitos'),
-      whatsapp: Yup.boolean(),
+        .max(9, 'No mínimo ${min} dígitos'),
     })
   ),
 });
@@ -45,11 +42,10 @@ export default function StoreEditPhones() {
 
   useEffect(() => {
     api
-      .get(`/api/owner/store/${slug}/`)
+      .get(`/v1/store/${slug}/`)
       .then(res => {
         const { data } = res;
         setStore(data);
-        console.log('data', data);
       })
       .catch(errors => {
         toast.error(`Ocorreu um erro ao buscar loja: ${slug}`);
@@ -60,13 +56,11 @@ export default function StoreEditPhones() {
   }, []);
 
   function handleSubmit({ phones }) {
-    console.log('phones', phones);
     api
-      .put(`/api/owner/store/${slug}/phones/`, { phones: phones })
+      .put(`/v1/store/${slug}/phones/`, { phones: phones })
       .then(({ data }) => {
         setStore(data);
         toast.success('Dados salvos com sucesso!');
-        history.replace(`/store/${slug}/edit`);
       })
       .catch(error => {
         toast.error('Ocorreu um erro ao salvar os dados.');
@@ -97,35 +91,60 @@ export default function StoreEditPhones() {
   const { phones } = store;
   return (
     <Container>
-      <Content>
-        <Title>Telefones</Title>
-        <button onClick={addPhone}>
-          <IoMdAddCircle />
-        </button>
-      </Content>
-
-      <Formik initialValues={phones} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={store}
+        onSubmit={handleSubmit}
+        validationSchema={schema}
+      >
         {({ values, errors, touched, handleReset }) => {
-          console.log('val', values);
           return (
-            <Form>
+            <Form className="form">
               <FieldArray
-                name="phones"
-                render={props => {
-                  console.log('prodasds', props);
-
-                  return phones && phones.length > 0
-                    ? phones.map((item, index) => {
-                        return (
-                          <BlockField className="block-fied" key={index}>
-                            <PhoneBlock name={`phones.${index}`} />
-                            <button onClick={() => removePhone(index)}>
-                              <IoMdRemoveCircle />
-                            </button>
-                          </BlockField>
-                        );
-                      })
-                    : null;
+                name="days"
+                render={arrayHelpers => {
+                  return (
+                    <>
+                      <Content>
+                        <Title>Telefones</Title>
+                        <IconAdd
+                          className="icon-add"
+                          onClick={() =>
+                            arrayHelpers.push({
+                              ddd: '',
+                              number: '',
+                              whatsapp: false,
+                            })
+                          }
+                        >
+                          <IoMdAddCircle />
+                        </IconAdd>
+                      </Content>
+                      {values.phones && values.phones.length > 0
+                        ? values.phones.map((item, index) => {
+                            return (
+                              <BlockField className="block-fied" key={index}>
+                                <PhoneBlock
+                                  name={`phones.${index}`}
+                                  errors={getIn(
+                                    arrayHelpers.form.errors,
+                                    `phones.${index}`
+                                  )}
+                                  touched={getIn(
+                                    arrayHelpers.form.touched,
+                                    `phones.${index}`
+                                  )}
+                                />
+                                <button
+                                  onClick={() => arrayHelpers.remove(index)}
+                                >
+                                  <IoMdRemoveCircle />
+                                </button>
+                              </BlockField>
+                            );
+                          })
+                        : null}
+                    </>
+                  );
                 }}
               />
               <button disabled={saving ? 'disabled' : ''} type="submit">

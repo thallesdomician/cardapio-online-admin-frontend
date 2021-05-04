@@ -50,7 +50,7 @@ export const Detail = styled.div`
     h2 {
       font-family: 'Roboto', 'sans-serif';
       font-weight: 700;
-      color: #1b2956;
+      color: #000;
     }
     p {
       color: #6a6a6a;
@@ -82,7 +82,7 @@ export const Detail = styled.div`
         color: red;
       }
       &.edit {
-        color: #1b2956;
+        color: #550055;
       }
     }
   }

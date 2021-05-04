@@ -6,21 +6,23 @@ export const Container = styled.div`
 export const Content = styled.div`
   flex-direction: row;
   display: flex;
-  button {
-    background-color: #fff;
-    border: none;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+`;
+export const IconAdd = styled.div`
+  background-color: #fff;
+  border: none;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    svg {
-      width: 25px;
-      height: 25px;
-      color: #64219c;
-    }
+  svg {
+    width: 25px;
+    height: 25px;
+    color: #550055;
   }
 `;
+
 export const BlockField = styled.div`
   &.block-fied {
     display: flex;

@@ -8,6 +8,7 @@ import { Container, Content } from './styles.js';
 import Loader from '~/components/Loader';
 
 import Card from './Card';
+import CreateModal from './CreateModal/index.js';
 
 export default function Store() {
   const [storeList, setStoreList] = useState([]);
@@ -15,7 +16,7 @@ export default function Store() {
 
   useEffect(() => {
     api
-      .get('/api/owner/store/')
+      .get('/v1/store/')
       .then(({ data }) => {
         setStoreList(data.results);
       })
@@ -34,9 +35,13 @@ export default function Store() {
   return (
     <Container>
       <Content>
-        {storeList.map(store => {
-          return <Card store={store} key={store.slug} />;
-        })}
+        {storeList.length ? (
+          storeList.map(store => {
+            return <Card store={store} key={store.slug} />;
+          })
+        ) : (
+          <CreateModal />
+        )}
       </Content>
     </Container>
   );

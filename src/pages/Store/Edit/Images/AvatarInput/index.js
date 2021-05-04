@@ -3,6 +3,8 @@ import api from '~/services/api';
 import { Container } from './styles.js';
 import { toast } from 'react-toastify';
 
+import avatar from '~/assets/default-company-avatar.svg';
+
 export default function AvatarInput({ slug, image }) {
   const [preview, setPreview] = useState(image);
 
@@ -12,7 +14,7 @@ export default function AvatarInput({ slug, image }) {
     data.append('avatar', e.target.files[0]);
 
     api
-      .post(`/api/owner/store/${slug}/avatar/`, data)
+      .post(`/v1/store/${slug}/avatar/`, data)
       .then(({ data }) => {
         console.log(data);
         setPreview(data.avatar);
@@ -26,7 +28,7 @@ export default function AvatarInput({ slug, image }) {
   return (
     <Container>
       <label htmlFor="avatar">
-        <img src={preview} alt="" />
+        <img src={preview || avatar} alt="" />
         <input
           type="file"
           id="avatar"

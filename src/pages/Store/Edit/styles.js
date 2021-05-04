@@ -13,9 +13,11 @@ const rotate = keyframes`
   }
 `;
 
-export const Container = styled.div``;
-export const Content = styled.div`
+export const Container = styled.div`
   background-color: #fff;
+  border-radius: 4px;
+`;
+export const Content = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
@@ -36,10 +38,10 @@ export const Content = styled.div`
       align-self: flex-start;
       margin-top: 10px;
       font-weight: 600;
-      color: #90259e;
+      color: #000;
       .show-slug {
         font-size: 1.2em;
-        color: #bf1010;
+        color: #a4279f;
       }
     }
 
@@ -51,9 +53,13 @@ export const Content = styled.div`
       line-height: 25px;
       font-size: 1.2em;
       padding: 0 15px;
-      color: #64219c;
+      color: #000;
       margin: 5px 0 15px;
-      border-bottom: 1px solid #a4279f;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: border-bottom linear 200ms;
+      &:focus {
+        border-bottom: 2px solid rgba(100, 33, 156, 0.6);
+      }
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
@@ -62,7 +68,7 @@ export const Content = styled.div`
 
     span {
       color: #bf1010;
-      align-self: flex-end;
+      align-self: flex-start;
       margin: 0 0 15px;
     }
 
@@ -96,6 +102,18 @@ export const Content = styled.div`
     }
   }
 `;
+
+export const Close = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 15px;
+  a {
+    svg {
+      height: 25px;
+      width: 25px;
+    }
+  }
+`;
 export const Tabs = styled.div`
   display: inline-flex;
   width: 100%;
@@ -103,7 +121,7 @@ export const Tabs = styled.div`
   min-height: 50px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: #fff;
   border-radius: 4px 4px 0 0;
   span {
@@ -112,15 +130,15 @@ export const Tabs = styled.div`
     height: 80%;
     &:hover {
       a {
-        color: #64219c;
+        color: #550055;
       }
     }
     & + span {
-      border-left: 1px solid #a4279f;
+      border-left: 1px solid #d2d2d2;
     }
     &.active {
       a {
-        color: #64219c;
+        color: #330033;
         strong {
           font-weight: bold;
         }
@@ -132,7 +150,7 @@ export const Tabs = styled.div`
       justify-content: center;
       flex-direction: column;
 
-      color: #a4279f;
+      color: #a4a4a4;
 
       @media ${device.tablet} {
         flex-direction: row;

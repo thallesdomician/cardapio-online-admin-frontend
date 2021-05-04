@@ -2,12 +2,15 @@ import styled from 'styled-components';
 
 import { device } from '~/styles/global';
 
+import background from '~/assets/background.svg';
+
 export const Wrapper = styled.div`
   min-height: 100%;
   width: 100%;
   min-width: 350px;
-  background: #90259e;
-  background: linear-gradient(45deg, #64219c, #a4279f);
+  background-color: #330033;
+  background-image: url(${background});
+  background-attachment: fixed;
   position: relative;
   display: flex;
   @media ${device.tablet} {

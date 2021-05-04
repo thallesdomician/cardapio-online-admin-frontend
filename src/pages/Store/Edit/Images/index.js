@@ -20,7 +20,7 @@ export default function StoreEditImages() {
 
   useEffect(() => {
     api
-      .get(`/api/owner/store/${slug}/`)
+      .get(`/v1/store/${slug}/`)
       .then(res => {
         setData({ ...res.data });
         // use/access the results
