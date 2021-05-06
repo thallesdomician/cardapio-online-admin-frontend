@@ -9,7 +9,7 @@ import PhoneBlock from './PhoneBlock';
 import { AiOutlineReload } from 'react-icons/ai';
 import { IoMdRemoveCircle, IoMdAddCircle } from 'react-icons/io';
 
-import { Container, Content, BlockField, IconAdd } from './styles';
+import { Container, Content, BlockField, IconAdd, IconRemove } from './styles';
 
 // import { Form, Scope } from '@unform/core';
 
@@ -134,11 +134,12 @@ export default function StoreEditPhones() {
                                     `phones.${index}`
                                   )}
                                 />
-                                <button
+                                <IconRemove
+                                  className="button-remove"
                                   onClick={() => arrayHelpers.remove(index)}
                                 >
                                   <IoMdRemoveCircle />
-                                </button>
+                                </IconRemove>
                               </BlockField>
                             );
                           })

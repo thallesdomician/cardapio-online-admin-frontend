@@ -3,7 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
-import { Container, Content, IconAdd } from './styles';
+import {
+  Container,
+  ContentTitle,
+  Content,
+  IconAdd,
+  IconRemove,
+  BlockTime,
+} from './styles';
 import { IoMdRemoveCircle, IoMdAddCircle } from 'react-icons/io';
 
 import api from '~/services/api';
@@ -65,19 +72,18 @@ function StoreEditOpenDays() {
   }, []);
 
   function handleSubmit({ days }) {
-    console.log('days', days);
-    // api
-    //   .put(`/v1/store/${slug}/phones/`, { phones: phones })
-    //   .then(({ data }) => {
-    //     setStore(data);
-    //     toast.success('Dados salvos com sucesso!');
-    //   })
-    //   .catch(error => {
-    //     toast.error('Ocorreu um erro ao salvar os dados.');
-    //   })
-    //   .finally(() => {
-    //     setSaving(false);
-    //   });
+    api
+      .put(`/v1/store/${slug}/open-days/`, { days: days })
+      .then(({ data }) => {
+        setStore(data);
+        toast.success('Dados salvos com sucesso!');
+      })
+      .catch(error => {
+        toast.error('Ocorreu um erro ao salvar os dados.');
+      })
+      .finally(() => {
+        setSaving(false);
+      });
   }
   if (loading) {
     return <Loading />;
@@ -96,51 +102,106 @@ function StoreEditOpenDays() {
             <Form className="form">
               <FieldArray
                 name="days"
-                render={arrayHelpers => {
+                render={arrayDayHelpers => {
                   return (
                     <>
-                      <Content>
+                      <ContentTitle>
                         <Title>Dias de Funcionamento</Title>
-                        {/* <IconAdd
-                        className="icon-add"
-                        onClick={() =>
-                          arrayHelpers.push({
-                            ddd: '',
-                            number: '',
-                            whatsapp: false,
-                          })
-                        }
-                      >
-                        <IoMdAddCircle />
-                      </IconAdd> */}
+                        <IconAdd
+                          className="icon-add"
+                          onClick={() =>
+                            arrayDayHelpers.push({
+                              day_of_week: '',
+                              times: [{ start: '', end: '' }],
+                            })
+                          }
+                        >
+                          <IoMdAddCircle />
+                        </IconAdd>
+                      </ContentTitle>
+                      <Content>
+                        {values.days && values.days.length > 0
+                          ? values.days.map((day, day_index) => {
+                              return (
+                                <div key={day_index}>
+                                  <label>
+                                    Dia da semana
+                                    <Field
+                                      name={`days.${day_index}.day_of_week`}
+                                      component={SelectField}
+                                      options={options}
+                                    />
+                                  </label>
+                                  <div
+                                    onClick={() => {
+                                      arrayDayHelpers.remove(day_index);
+                                    }}
+                                  >
+                                    {`rm day ${day_index}`}
+                                  </div>
+                                  <FieldArray
+                                    name={`${arrayDayHelpers.name}.${day_index}.times`}
+                                    render={arrayTimeHelpers => {
+                                      console.log(
+                                        `'${arrayDayHelpers.name}': name day time`
+                                      );
+                                      return (
+                                        <>
+                                          <IconAdd
+                                            className="icon-add"
+                                            onClick={() => {
+                                              arrayTimeHelpers.push({
+                                                start: '',
+                                                end: '',
+                                              });
+                                            }}
+                                          >
+                                            <IoMdAddCircle />
+                                          </IconAdd>
+
+                                          {day.times.map((time, time_index) => {
+                                            return (
+                                              <div key={time_index}>
+                                                <BlockTime>
+                                                  <label>
+                                                    Abertura
+                                                    <Field
+                                                      name={`days.${day_index}.times.${time_index}.start`}
+                                                      type="time"
+                                                    />
+                                                  </label>
+                                                  <label>
+                                                    Fechamento
+                                                    <Field
+                                                      name={`days.${day_index}.times.${time_index}.end`}
+                                                      type="time"
+                                                    />
+                                                  </label>
+
+                                                  {day.times.length > 1 ? (
+                                                    <IconRemove
+                                                      onClick={() => {
+                                                        arrayTimeHelpers.remove(
+                                                          time_index
+                                                        );
+                                                      }}
+                                                    >
+                                                      <IoMdRemoveCircle />
+                                                    </IconRemove>
+                                                  ) : null}
+                                                </BlockTime>
+                                              </div>
+                                            );
+                                          })}
+                                        </>
+                                      );
+                                    }}
+                                  />
+                                </div>
+                              );
+                            })
+                          : null}
                       </Content>
-                      {values.days && values.days.length > 0
-                        ? values.days.map((day, day_index) => {
-                            return (
-                              <div key={day_index}>
-                                <Field
-                                  name={`days.${day_index}.day_of_week`}
-                                  component={SelectField}
-                                  options={options}
-                                />
-                                {day.times.map((time, time_index) => {
-                                  return (
-                                    <div key={time_index}>
-                                      <Field
-                                        name={`days[${day_index}].times[${time_index}].start`}
-                                        type="time"
-                                      />
-                                      <Field
-                                        name={`days[${day_index}].times[${time_index}].end`}
-                                        type="time"
-                                      />
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            );
-                          })
-                        : null}
                     </>
                   );
                 }}
